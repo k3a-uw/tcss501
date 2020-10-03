@@ -2,7 +2,6 @@ import random
 import matplotlib.pyplot as plt
 import numpy as np
 
-random.seed(501)
 
 
 
@@ -50,14 +49,14 @@ def merge_sort(input_list):
         split = len(input_list) // 2
         left = input_list[:split]
         right = input_list[split:]
-        left, inst_l = n_log_n_merge_sort(left)
-        right, inst_r = n_log_n_merge_sort(right)
+        left, inst_l = merge_sort(left)
+        right, inst_r = merge_sort(right)
 
         output = []
         left_index = 0
         right_index = 0
         inst_c = 0
-        while left_index <  len(left) and right_index < len(right):
+        while left_index < len(left) and right_index < len(right):
             inst_c += 1
             if left[left_index] < right[right_index]:
                 output.append(left[left_index])
@@ -67,17 +66,15 @@ def merge_sort(input_list):
                 right_index += 1
 
         while left_index < len(left):
-            inst_c += 1
             output.append((left[left_index]))
             left_index += 1
 
         while right_index < len(right):
-            inst_c += 1
             output.append(right[right_index])
             right_index +=1
 
         return output, (inst_l + inst_r + inst_c)
-    return input_list, 1
+    return input_list, 0
 
 
 
@@ -92,15 +89,23 @@ def draw_plot(x, y, title="My Cool Chart"):
 
 
 # RUN DIFFERING SAMPLES
-sample_sizes = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 500, 1000, 2000, 5000, 10000]
+MIN_SAMPLE_SIZE = 100
+MAX_SAMPLE_SIZE = 100000
+NUM_SAMPLES = 100
+
+sample_sizes = np.linspace(MIN_SAMPLE_SIZE,
+                           MAX_SAMPLE_SIZE,
+                           NUM_SAMPLES,
+                           dtype='int')
 
 samples = []
 for sample_size in sample_sizes:
-    samples.append([random.randint(1,100) for i in range(0, sample_size)])
+    samples.append([random.randint(1, 100) for i in range(0, sample_size)])
 
 instructions = []
 for sample in samples:
-    r,i = array_reverse(sample)
+    print(f"Reversing array of size: {len(sample)}")
+    r, i = array_reverse(sample)
     instructions.append(i)
 
 draw_plot(sample_sizes, instructions, "Linear Algorithm: Reverse")
@@ -114,10 +119,9 @@ for sample in samples:
 draw_plot(sample_sizes, instructions, "Quadratic Algorithm: Bubble Sort")
 
 
-sample_sizes = [1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 500, 1000, 2000, 5000, 10000, 50000,100000]
 samples = []
-for sample_size in np.linspace(0,1000000, 10000, dtype='int'):
-    samples.append([random.randint(1,100) for i in range(0, sample_size)])
+for sample_size in sample_sizes:
+    samples.append([random.randint(1, 100) for i in range(0, sample_size)])
 
 instructions = []
 for sample in samples:
@@ -125,4 +129,4 @@ for sample in samples:
     r, i = merge_sort(sample)
     instructions.append(i)
 
-draw_plot(sample_sizes, instructions, "n log n Algorithm: Marge Sort")
+draw_plot(sample_sizes, instructions, "n log n Algorithm: Merge Sort")
