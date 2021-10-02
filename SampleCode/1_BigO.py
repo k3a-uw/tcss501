@@ -47,7 +47,7 @@ def array_reverse(input_list):
 
 def bubble_sort(input_list):
     """
-    Performs classic bubble sort, a quadradic O(n^2) algorithm for sorting data.
+    Compare each element with each other element to provide a sorted array.
 
     :param input_list A list of objects to be reversed.
     :return A sorted version/copy of the list.
