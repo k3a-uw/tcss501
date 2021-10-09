@@ -1,10 +1,11 @@
 def factorial(n):
     try:
-        # base case
+        # base cases
         if n < 0:
             return None
         if n == 0:
             return 1
+        # recursive case
         else:
             return n*factorial(n-1)
     except TypeError:
