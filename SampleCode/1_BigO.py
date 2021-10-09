@@ -168,3 +168,38 @@ print(f"\n\nTest Complete, Total Duration: {tot_duration_seconds:.2f} seconds.")
 
 draw_plot(sample_sizes[0:10], runtimes, "Polynomial Time Algorithm O(n^2): Bubble Sort")
 
+
+
+def summary_stats(n):
+    """ First calculates the median, and then the average.
+    :param n: An array of numeric values.
+    :return: A tuple of (median,average)
+    """
+
+    # SEGMENT 1
+    a_len = len(n)
+    if a_len == 1:  # TRIVIAL CASE WHERE N IS A SINGLE VALUE
+        return n[0], n[0]
+
+    # SEGMENT 2
+    a = merge_sort(n)  # USE WHAT YOU KNOW ABOUT TIME COMPLEXITY OF MERGE SORT FOR THIS SEGMENT
+    # SEGMENT 3
+    split = a_len // 2
+    median: int = 0
+    if a_len % 2 == 0:  # is even
+        median = (a[split - 1] + a[split]) / 2
+    else:
+        median = a[split]
+
+    # SEGMENT 4
+    running_sum = 0
+    for i in range(0, a_len):
+        running_sum += a[i]
+
+    mean = running_sum / a_len
+
+    return (median, mean)
+
+
+l = [1,7,4,2,1,4,3,6,7,3,12,40]
+med, avg = summary_stats(l)
