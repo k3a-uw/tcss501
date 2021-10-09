@@ -10,6 +10,7 @@ def factorial(n):
     except TypeError:
         return None
 
+
 def fact_lin(n):
     ret = 1
     for i in range(1, n+1):
@@ -17,15 +18,17 @@ def fact_lin(n):
 
     return ret
 
+
 def fib_rec(n):
     # base cases
     if n == 0:
         return 0
     elif n == 1:
         return 1
-    #recursive case
+    # recursive case
     else:
         return fib_rec(n-2)+fib_rec(n-1)
+
 
 def fib_lin(n):
     if n == 0:
@@ -35,13 +38,13 @@ def fib_lin(n):
     else:
         n2 = 0
         n1 = 1
-        for i in range(1,n):
+        ret = 0
+        for i in range(1, n):
             ret = n2+n1
             n2 = n1
             n1 = ret
         return ret
 
-    return tot
 
 def fib_const(n):
     sq5 = 5**.5
@@ -51,9 +54,10 @@ def fib_const(n):
     approx = (phi**n - psi**n) / sq5
     return int(approx)
 
+
 def merge_sort(input_list):
     """
-    Performs a classic merge sort, a linearithmic O(n log n) algorithm for soriting data.
+    Performs a classic merge sort, a linearithmic O(n log n) algorithm for sorting data.
 
     :param input_list A list of objects to be reversed.
     :return A sorted version/copy of the list.
@@ -91,15 +95,9 @@ def merge_sort(input_list):
     return input_list
 
 
-my_list = [1,5,4,3,4,5,3,2,1]
-
-def palindrome(n):
-    for i
-
-
 def median(n):
     a_len = len(n)
-    if(a_len) == 1:  # TRIVIAL CASE WHERE N IS A SINGLE VALUE
+    if a_len == 1:  # TRIVIAL CASE WHERE N IS A SINGLE VALUE
         return n[0]
 
     a = merge_sort(n)
@@ -109,14 +107,13 @@ def median(n):
     else:
         return a[split]
 
-l = [1,2,3,4,5]
-
 
 def summary_stats(n):
     """
-
-    :param n:
-    :return:
+    Used as an example in Assignment 1.  Performs basic summary statistics for the provided list of
+    numeric values.
+    :param n: A list of numeric values.
+    :return: A tuple of the median and mean of the provided list (median, mean).
     """
 
     # SEGMENT 1
@@ -129,11 +126,11 @@ def summary_stats(n):
 
     # SEGMENT 3
     split = a_len // 2
-    median: int = 0
+    med: int = 0
     if a_len % 2 == 0:  # is even
-        median = (a[split - 1] + a[split]) / 2
+        med = (a[split - 1] + a[split]) / 2
     else:
-        median = a[split]
+        med = a[split]
 
     # SEGMENT 4
     running_sum = 0
@@ -142,4 +139,4 @@ def summary_stats(n):
 
     mean = running_sum / a_len
 
-    return (median, mean)
+    return med, mean
