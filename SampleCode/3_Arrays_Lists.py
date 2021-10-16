@@ -3,6 +3,69 @@ import numpy as np
 from sys import getsizeof
 
 
+class BasicNode:
+    def __init__(self, data=None, link=None):
+        self.data = data
+        self.link = link
+
+n1 = BasicNode("Hello")
+n2 = BasicNode("World")
+n1.link = n2
+
+print(f"{n1.data}, {n1.link.data}")
+
+n2.data = "Universe"
+print(f"{n1.data}, {n1.link.data}")
+
+
+n4 = BasicNode("Moon")
+n3 = BasicNode("Goodnight", n4)
+n2 = BasicNode("World", n3)
+n1 = BasicNode("Hello", n2)
+
+print(f"{n1.data}, {n2.data}, {n3.data}, {n4.data}")
+print(f"{n1.data}, {n1.link.data}, {n1.link.link.data}, {n1.link.link.link.data}")
+# Hello, World, Goodnight, Moon
+
+curr = n1
+while curr:
+    print(f"{curr.data}", end=", ")
+    curr = curr.link
+
+print("\b\b")
+
+
+class MapCellNode:
+    def __init__(self, data=None):
+        self.data = data
+        self.north = None
+        self.east = None
+        self.south = None
+        self.west = None
+
+
+n1 = MapCellNode("Danger")
+n2 = MapCellNode("Danger")
+n3 = MapCellNode("Safe")
+n4 = MapCellNode("Safe")
+n5 = MapCellNode("Danger")
+n1.east = n2
+n1.south = n3
+n2.west = n1
+n2.south = n4
+
+class SingleLinkNode:
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
+
+class SinglyLinkedList:
+    def __init__(self):
+        self.first = None
+
+
+
+
 # array sample (slide 17)
 import array
 x = array.array('i')  # creates empty array of integers
