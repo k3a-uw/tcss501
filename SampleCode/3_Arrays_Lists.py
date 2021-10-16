@@ -1,145 +1,63 @@
-def factorial(n):
-    try:
-        # base case
-        if n < 0:
-            return None
-        if n == 0:
-            return 1
-        else:
-            return n*factorial(n-1)
-    except TypeError:
-        return None
-
-def fact_lin(n):
-    ret = 1
-    for i in range(1, n+1):
-        ret *= i
-
-    return ret
-
-def fib_rec(n):
-    # base cases
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 1
-    #recursive case
-    else:
-        return fib_rec(n-2)+fib_rec(n-1)
-
-def fib_lin(n):
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 1
-    else:
-        n2 = 0
-        n1 = 1
-        for i in range(1,n):
-            ret = n2+n1
-            n2 = n1
-            n1 = ret
-        return ret
-
-    return tot
-
-def fib_const(n):
-    sq5 = 5**.5
-    psi = (1 - sq5) / 2
-    phi = (1 + sq5) / 2
-
-    approx = (phi**n - psi**n) / sq5
-    return int(approx)
-
-def merge_sort(input_list):
-    """
-    Performs a classic merge sort, a linearithmic O(n log n) algorithm for soriting data.
-
-    :param input_list A list of objects to be reversed.
-    :return A sorted version/copy of the list.
-    """
-
-    if len(input_list) > 1:
-        split = len(input_list) // 2
-        left = input_list[:split]
-        right = input_list[split:]
-        left = merge_sort(left)
-        right = merge_sort(right)
-
-        output = []
-        left_index = 0
-        right_index = 0
-        inst_c = 0
-        while left_index < len(left) and right_index < len(right):
-            inst_c += 1
-            if left[left_index] < right[right_index]:
-                output.append(left[left_index])
-                left_index += 1
-            else:
-                output.append(right[right_index])
-                right_index += 1
-
-        while left_index < len(left):
-            output.append((left[left_index]))
-            left_index += 1
-
-        while right_index < len(right):
-            output.append(right[right_index])
-            right_index += 1
-
-        return output
-    return input_list
+import array
+import numpy as np
+from sys import getsizeof
 
 
-my_list = [1,5,4,3,4,5,3,2,1]
+# array sample (slide 17)
+import array
+x = array.array('i')  # creates empty array of integers
+x.append(10)
+x.append(9)
+x.append(8)
+x.append(7)
+x.append(5)
 
-def palindrome(n):
-    for i
+print(x[0])
+x[0] = 100
+print(x[0])
 
+y = array.array('i', [10, 9, 8, 7, 5]) # creates an initialized array
 
-def median(n):
-    a_len = len(n)
-    if(a_len) == 1:  # TRIVIAL CASE WHERE N IS A SINGLE VALUE
-        return n[0]
-
-    a = merge_sort(n)
-    split = a_len // 2
-    if a_len % 2 == 0:  # is even
-        return (a[split-1] + a[split]) / 2
-    else:
-        return a[split]
-
-l = [1,2,3,4,5]
+print(y)
 
 
-def summary_stats(n):
-    """
+ARRAY_SIZE = 1000
+array_data = np.linspace(1, ARRAY_SIZE, ARRAY_SIZE, dtype=int)
 
-    :param n:
-    :return:
-    """
+# CREATE A NEW ARRAY OF INTEGERS
+x = array.array('i', array_data)
 
-    # SEGMENT 1
-    a_len = len(n)
-    if a_len == 1:  # TRIVIAL CASE WHERE N IS A SINGLE VALUE
-        return n[0], n[0]
+# VERY BASIC INTRO TO NUMPY ARRAYS
+my_array = np.array([1, 2, 3, 4, 5])
 
-    # SEGMENT 2
-    a = merge_sort(n)  # USE WHAT YOU KNOW ABOUT TIME COMPLEXITY OF MERGE SORT FOR THIS SEGMENT
+for i in range(0,my_array.size):
+    print(f"my_array[{i}] = {my_array[i]}")
 
-    # SEGMENT 3
-    split = a_len // 2
-    median: int = 0
-    if a_len % 2 == 0:  # is even
-        median = (a[split - 1] + a[split]) / 2
-    else:
-        median = a[split]
+my_big_array = np.array(array_data)
 
-    # SEGMENT 4
-    running_sum = 0
-    for i in range(0, a_len):
-        running_sum += a[i]
+my_big_list = my_big_array.tolist()
 
-    mean = running_sum / a_len
+#2d array
+r1 = np.array([0, 1, 2, 3, 4])
+r2 = np.array([0, 1, 2, 3])
+two_d_array = np.array([r1, r2], dtype="object") # np doesn't like jagged arrays so you have to set dtype
 
-    return (median, mean)
+print(two_d_array)
+
+my_big_array = np.array(array_data)
+print(my_big_array[0:5])    # Subselects first 5 elements
+
+my_by_array_x_10 = my_big_array * 10
+
+print(my_by_array_x_10)
+
+print("Original 2-D Array")
+print(two_d_array)
+print("2-D Array x 2")
+print(two_d_array * 2)
+
+# COMPARE THE SIZES OF THE ARRAYS
+print(f" Array Size: {getsizeof(x)} bytes for {len(x)} elements.")
+print(f" Numpy Array Size: {getsizeof(my_big_array)} bytes bytes for {len(my_big_array)} elements..")
+print(f" List Size: {getsizeof(my_big_list)} bytes bytes for {len(my_big_list)} elements.")
+
