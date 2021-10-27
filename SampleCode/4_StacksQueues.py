@@ -76,25 +76,6 @@ class Stack:
             return self.top.data
 
 
-def check_brackets(n):
-    s = Stack()
-    for c in n:
-        if c in ('{', '[', '('):
-            s.push(c)
-        if c in ('}', ']', ')'):
-            l = s.pop()
-            if l == '{' and c == '}':
-                continue
-            elif l == '[' and c == ']':
-                continue
-            elif l == '(' and c == ')':
-                continue
-            else:
-                return False
-
-    return s.is_empty()
-
-
 class StackQueue:
     def __init__(self):
         self.inbound = Stack()
@@ -114,3 +95,53 @@ class StackQueue:
         else:
             self.size -= 1
             return self.outbound.pop()
+
+
+def check_brackets(n):
+    s = Stack()
+    for c in n:
+        if c in ('{', '[', '('):
+            s.push(c)
+        if c in ('}', ']', ')'):
+            l = s.pop()
+            if l == '{' and c == '}':
+                continue
+            elif l == '[' and c == ']':
+                continue
+            elif l == '(' and c == ')':
+                continue
+            else:
+                return False
+
+    return s.is_empty()
+
+
+
+
+if __name__ == "__main__":
+    print("Demonstration of Stacks vs Queues")
+
+    my_stack = Stack()
+    my_queue = Queue()
+
+    words_to_add = ['Four', 'Score', 'and Seven', 'Years Ago']
+
+    for word in words_to_add:
+        print(f"Adding {word}")
+        my_stack.push(word)
+        my_queue.enqueue(word)
+
+
+    print("\n\nShowing Stack...")
+    while not my_stack.is_empty():
+        v = my_stack.pop()
+        print(f"Element: {v}")
+
+    print("\n\nDequeing...")
+    while not my_queue.size == 0:
+        x = my_queue.dequeue()
+        print(f"Element: {x}")
+
+
+    my_stack.push("Hello")
+    my_stack.push("World")
