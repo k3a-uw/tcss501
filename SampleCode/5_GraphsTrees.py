@@ -68,9 +68,7 @@ class BinarySearchTree:
     def get_node_with_parent(self, data):
         parent = None
         curr = self.root_node
-        if curr is None:
-            return parent, None
-        while True:
+        while curr:
             if curr.data == data:
                 return parent, curr
             elif curr.data > data:
@@ -84,7 +82,7 @@ class BinarySearchTree:
     def remove(self, data):
         parent, node = self.get_node_with_parent(data)
 
-        if parent is None and node is None:
+        if node is None:
             return False
 
         children = 0
