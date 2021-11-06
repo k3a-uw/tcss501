@@ -7,8 +7,12 @@ class BinarySearchTree:
             self.left = None
             self.right = None
 
+        def __str__(self):
+            return f"Data:{self.data}"
+
     def __init__(self):
         self.root_node = None
+
 
     def is_empty(self):
         return self.root_node == None
@@ -215,3 +219,71 @@ bst.remove(10)
 
 for data in bst.in_order_recursive_iter(bst.root_node):
     print(f"Doing something with {data}")
+
+
+
+
+
+class Stack:
+    class StackNode:
+        def __init__(self, data=None):
+            self.data = data
+            self.next = None
+
+    def __init__(self):
+        self.top = None
+        self.size = 0
+
+    def is_empty(self):
+        return self.size == 0
+
+    def push(self, data):
+        n = Stack.StackNode(data)
+        if self.is_empty():
+            self.top = n
+        else:
+            n.next = self.top
+            self.top = n
+
+        self.size += 1
+
+    def pop(self):
+        if self.is_empty():
+            return None
+        else:
+            r = self.top
+            self.top = self.top.next
+
+        self.size -= 1
+        return r.data
+
+    def peek(self):
+        if self.is_empty():
+            return None
+        else:
+            return self.top.data
+
+# (2 + 5) * (7 - 3)
+
+post_fix_expr = [2, 5, '+' , 7, 3, '-', '*' ]
+
+def process_post_fix(post_fix_expr):
+    operators = ['+', '-', '*', '/']
+    post_fix_stack = Stack()
+    for item in post_fix_expr:
+        if item in operators:
+            b = post_fix_stack.pop()
+            a = post_fix_stack.pop()
+            if item == '+':
+                result = a+b
+            elif item == '-':
+                result = a-b
+            elif item == '*':
+                result = a*b
+            else:
+                result = a/b
+            post_fix_stack.push(result)
+        else:
+            post_fix_stack.push(item)
+
+    return post_fix_stack.pop()
