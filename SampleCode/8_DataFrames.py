@@ -45,6 +45,9 @@ def age_bucket_2(age):
 ### CREATING A NEW PANDAS SERIES
 ints = pd.Series([3, 1, 2])
 floats = pd.Series([1., 2, 3])
+
+floats.sort_values()
+
 mixed = pd.Series([1, 'two', 3.0])
 objs = pd.Series({'cats': ['felix', 'garfield', 'scratchy', 'tom'],
                  'dogs': ['beethoven', 'toto', 'lassie']})
@@ -72,29 +75,37 @@ simpson_ages_series.sort_values(inplace=True)
 
 palindrome_data = pd.Series(['a', 'aba', 'abc', 'cba', 'abrarba', 'racecar', 'blah', 'blahalb'])
 
+
+
+palindrome_data = palindrome_data[palindrome_data.apply(is_palindrome)]
+# NOTE INDEX IS 0,1,4,5,6,7
+palindrome_data.reset_index()
+palindrome_data.reset_index(drop=True)
+palindrome_data.reset_index(drop=True, inplace=True)
+
 mask = simpson_ages_series > 11
 
 simpson_ages_series[mask]
-
-floats.sort_values()
-
 
 simpson_ages_series[[True, True, False, False, False, False, False]]
 
 simpson_ages_series + 1
 
-simpson_ages_series.apply(age_bucket)
 
-simpson_ages_series.apply(lambda x: x*(x+1) / 2)
-
+# ITERATING EXAMPLES
 for age in simpson_ages_series:
     print(age_bucket(age))
 
 for index, age in simpson_ages_series.iteritems():
     print(f"{index} is a(n) {age_bucket(age)}")
 
+simpson_ages_series.apply(age_bucket)
 
-####################################
+simpson_ages_series.apply(lambda x: x*(x+1) / 2)
+
+
+
+############# BACK TO SLIDES #######################
 
 simpson_df_data = {
     'first': ['homer', 'marge', 'bart', 'lisa', 'maggie', 'clancy', 'charles'],
@@ -157,7 +168,9 @@ wa_data = data.loc[data.StateAbbr == 'WA', :]
 wa_data.shape
 
 sns.distplot(wa_data.Data_Value[h_mask])
+plt.show()
 
+#### END OF WEEK 8 #####
 
 def words_per_year(row, words, year):
     return row[words] // (2020 - row[year])
@@ -179,3 +192,6 @@ res = company_df.merge(user_df,
                        how='inner',
                        left_on=['owner_id'],
                        right_on=['usr_id'])
+
+
+
