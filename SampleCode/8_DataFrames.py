@@ -66,7 +66,7 @@ simpson_ages = {
 simpson_ages_series = pd.Series(simpson_ages)
 
 simpson_ages_series.sort_values(ascending=False,
-                                kind='mergesort')
+                                kind='heapsort')
 # kind{‘quicksort’, ‘mergesort’, ‘heapsort’, ‘stable’}, default ‘quicksort’
 
 simpson_ages_series.sort_index(ascending=True)
@@ -166,8 +166,9 @@ plt.show()
 wa_data = data.loc[data.StateAbbr == 'WA', :]
 
 wa_data.shape
+h_mask2 = wa_data['Short_Question_Text'] == 'Health Insurance'
 
-sns.distplot(wa_data.Data_Value[h_mask])
+sns.distplot(wa_data.Data_Value[h_mask2])
 plt.show()
 
 #### END OF WEEK 8 #####
