@@ -424,6 +424,7 @@ class DoublyLinkedList:
     def delete(self, data):
         """
         Searches for an element that contains the provided data.
+        Will stop after deleting the first found element.
         :param data: The data for which to search for and delete.
         :return: True if the deletion was successful, False otherwise.
         """
@@ -447,6 +448,7 @@ class DoublyLinkedList:
                     curr.prev.next = curr.next
                     curr.next.prev = curr.prev
                     deleted_fl = True
+                    break
                 curr = curr.next
 
         if deleted_fl:
@@ -528,3 +530,197 @@ print(my_doubly_linked_list)
 print("Clearing...")
 my_doubly_linked_list.clear()
 print(my_doubly_linked_list)
+
+
+
+##################################################
+# SIMPLE IMPLEMENTATION OF A DOUBLY LINKED LIST
+##################################################
+class CircularLinkedList:
+    """
+    A basic implementation of a singly linked list allowing for search, delete, contains, append.
+    """
+    class CircularLinkNode:
+        """
+        A simple node to be used for the SinglyLinkedList containing a next pointer and data field.
+        """
+        def __init__(self, data):
+            """
+            Creates a new node containing the provided data.
+            :param data: Any datatype that supports equality (for search/contains/delete).
+            """
+            self.data = data
+            self.next = None
+            self.prev = None
+
+    def __init__(self):
+        """
+        Creates a new empty LinkedList.
+        """
+        self.first = None
+        self.last = None
+        self.count = 0
+
+    def __str__(self):
+        """
+        Generates the string representation of the linked list.  Basically a comma-seperated value
+        list of the element values followed by the size.
+        Example:  "String1, String2, String3: Size: 3"
+        :return: A string representation of the linked list.
+        """
+
+        r = ', '.join([x for x in self.iter()])
+        r = "[Empty]" if len(r) == 0 else r
+        r += f": Size: {self.size()}"
+        return r
+
+    def append(self, data):
+        """
+        Adds a new element to the end of the list.
+        :param data: The data to add to the end of the list.
+        :return: None
+        """
+        n = CircularLinkedList.CircularLinkNode(data)
+        # Special case for empty lists
+        if self.first is None:
+            self.first = n
+            self.last = n
+            n.next = self.first
+            n.prev = self.last
+        else:
+            n.prev = self.last  # the old .last becomes the new node's prev
+            self.last.next = n  # the old .last needs a new next (the new node)
+            self.last = n  # the last node becomes the last node
+            self.first.prev = n
+            n.next = self.first
+
+        self.count += 1
+
+    def contains(self, data):
+        """
+        Searches the linked list for the provided data.
+        :param data: The data (needle) for which to search.
+        :return: True if a node contains data matching the searched for data, False otherwise
+        """
+        curr = self.first
+
+        while curr:
+            if curr.data == data:
+                return True
+            curr = curr.next
+            if curr == self.first:   # If we have looped back to the front
+                break
+
+        return False
+
+    def clear(self):
+        """
+        Removes all elements from the list.
+        :return:
+        """
+        self.first = None
+        self.last = None
+        self.count = 0
+
+    def delete(self, data):
+        """
+        Searches for an element that contains the provided data.
+        Will stop after removing the first matching element.
+        :param data: The data for which to search for and delete.
+        :return: True if the deletion was successful, False otherwise.
+        """
+        deleted_fl = False
+
+        if self.first is None:  # SPECIAL CASE FOR EMPTY LISTS
+            pass
+        elif self.first.data == data:  # SPECIAL CASE FOR REMOVE FROM FRONT
+            if self.first == self.last:  # IF REMOVING LAST NODE
+                self.first = None
+                self.last = None
+            else:
+                self.first = curr.next
+                self.first.prev = self.last
+                self.last.next = self.first
+            deleted_fl = True
+        elif self.last.data == data:  # SPECIAL CASE FOR REMOVE FROM END
+            self.last = self.last.prev
+            self.last.next = self.first
+            self.first.prev = self.last
+            deleted_fl = True
+        else:  # REGULAR CASE, LOOP THROUGH TO SEE IF EXISTS IN THE MIDDLE
+            curr = self.first
+            while curr:
+                if curr.data == data:
+                    curr.prev.next = curr.next
+                    curr.next.prev = curr.prev
+                    deleted_fl = True
+                    break
+                curr = curr.next
+                if curr == self.first:    # IF WE HAVE LOOPED AROUND
+                    break
+
+        if deleted_fl:
+            self.count -= 1
+
+        return deleted_fl
+
+    def is_empty(self):
+        """
+        Common implementation to determine if the list contains any elements.
+        :return: False if list contains no elements, True otherwise.
+        """
+        return self.count == 0
+
+    def iter(self):
+        """
+        Manual implementation of an iterator for the linked list.  When called successively
+        will return the next element in the list.  Will continue returning elements around
+        the circular list.
+        :return: The next element of the list.
+        """
+        curr = self.first
+        while curr:
+            ret = curr.data
+            curr = curr.next
+            yield ret
+
+    def iter_once(self):
+        """
+        Manual implementation of an iterator for the linked list.  When called successively
+        will return the next element in the list.  Will return None when the end of the list
+        is found.
+        :return: The next element of the list.
+        """
+        curr = self.first
+        while curr:
+            ret = curr.data
+            curr = curr.next
+            yield ret
+            if curr == self.first:
+                break
+
+    def search(self, data):
+        """
+        Searches linearly through the list for an element containing data that matches the data
+        for which is being searched.  If found, returns a pointer to the node containing the data.
+        Otherwise returns None.
+
+        :param data: The data for which the function will search.
+        :return: A pointer to the node that contains the data that was being searched for.
+        False otherwise.
+        """
+        curr = self.first
+
+        while curr:
+            if curr.data == data:
+                return curr
+            curr = curr.next
+            if curr.next == self.first:
+                break
+
+    def size(self):
+        """
+        Return the number of elements in the linked list.
+        :return: An integer representing the numbrer of elements in the list.  0 if list is empty.
+        """
+        return self.count
