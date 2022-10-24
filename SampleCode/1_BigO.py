@@ -205,3 +205,17 @@ l = [1,7,4,2,1,4,3,6,7,3,12,40]
 med, avg = summary_stats(l)
 
 print("Hello World, Example")
+
+
+def factorial(n):
+    try:
+        if n - int(n) != 0 or n < 0:
+            raise ValueError
+        elif n == 0:
+            return 1
+        else:
+            return n * factorial(n-1)
+
+    except ValueError:
+        raise ValueError("n must be an integer greater than or equal to zero.")
+
