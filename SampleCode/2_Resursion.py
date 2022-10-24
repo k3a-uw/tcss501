@@ -1,15 +1,15 @@
 def factorial(n):
     try:
-        # base cases
-        if n < 0:
-            return None
-        if n == 0:
+        if n - int(n) != 0 or n < 0:
+            raise ValueError
+        elif n == 0:
             return 1
-        # recursive case
         else:
-            return n*factorial(n-1)
-    except TypeError:
-        return None
+            return n * factorial(n-1)
+
+    except ValueError:
+        raise ValueError("n must be an integer greater than or equal to zero.")
+
 
 
 def fact_lin(n):
@@ -30,6 +30,9 @@ def fib_rec(n):
     else:
         return fib_rec(n-2)+fib_rec(n-1)
 
+for i in range(0,10):
+    print(f"{fib_rec(i)}", end=",")
+print("\b...")  # get rid of final comma
 
 def fib_lin(n):
     if n == 0:
@@ -54,6 +57,16 @@ def fib_const(n):
 
     approx = (phi**n - psi**n) / sq5
     return int(approx)
+
+
+x = 0
+miss_count = 0
+while miss_count < 20:
+    l = fib_lin(x)
+    c = fib_const(x)
+    miss_count += 0 if l == c else 1
+    print(f"x={x}, fib_lin={l}, fib_const={c}, diff={c-l}")
+    x += 1
 
 
 def merge_sort(input_list):
