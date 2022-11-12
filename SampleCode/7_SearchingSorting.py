@@ -194,18 +194,19 @@ def quick_sort(input_list, first, last):
         quick_sort(input_list, partition_point + 1, last)
 
 
+if __name__ == "__main__":
+    import random
+    random.seed(100)
 
+    ARRAY_SIZE = 32
+    LOW_NUM = 1
+    HIGH_NUM = ARRAY_SIZE * 5
 
-import random
-random.seed(100)
+    my_list = []
+    for i in range(32):
+        my_list.append(random.randint(LOW_NUM, HIGH_NUM))
 
-ARRAY_SIZE = 32
-LOW_NUM = 1
-HIGH_NUM = ARRAY_SIZE * 5
+    quick_sort(my_list, 0, len(my_list) - 1)
 
-my_list = []
-for i in range(32):
-    my_list.append(random.randint(LOW_NUM, HIGH_NUM))
-
-
-quick_sort(my_list, 0, len(my_list) - 1)
+    for i in my_list:
+        print(my_list)
