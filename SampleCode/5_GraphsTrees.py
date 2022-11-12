@@ -1,5 +1,6 @@
 from collections import deque
 
+
 class BinarySearchTree:
     class GraphNode:
         def __init__(self, data):
@@ -13,9 +14,8 @@ class BinarySearchTree:
     def __init__(self):
         self.root_node = None
 
-
     def is_empty(self):
-        return self.root_node == None
+        return self.root_node is None
 
     def insert(self, data):
         n = BinarySearchTree.GraphNode(data)
@@ -191,6 +191,14 @@ class BinarySearchTree:
         self.in_order_recursive(curr.right)
         print(node.data)
 
+    def post_order_recursive_iter(self, node):
+        curr = node
+        if curr is None:
+            return None
+        yield from self.in_order_recursive_iter(curr.left)
+        yield from self.in_order_recursive_iter(curr.right)
+        yield node.data
+
     def breadth_first_search_traversal(self):
         queue = deque()
         queue.append(self.root_node)
@@ -204,86 +212,20 @@ class BinarySearchTree:
                 queue.append(node.right)
 
 
+if __name__ == '__main__':
+    bst = BinarySearchTree()
 
-#######################################
-## EXAMPLE OF REMOVE FROM THE SLIDES ##
-#######################################
+    insert = [7, 5, 10, 8, 15, 17, 12, 11, 13, 11.5]
 
-bst = BinarySearchTree()
-insert = [7, 5, 10, 8, 15, 17, 12, 11, 13, 11.5]
+    for e in insert:
+        bst.insert(e)
 
-for i in insert:
-    bst.insert(i)
+    bst.remove(10)
 
-bst.remove(10)
+    print("STARTING IN ORDER TRAVERSAL...")
+    for data in bst.in_order_recursive_iter(bst.root_node):
+        print(f"Do something with {data}")
 
-for data in bst.in_order_recursive_iter(bst.root_node):
-    print(f"Doing something with {data}")
-
-
-
-
-
-class Stack:
-    class StackNode:
-        def __init__(self, data=None):
-            self.data = data
-            self.next = None
-
-    def __init__(self):
-        self.top = None
-        self.size = 0
-
-    def is_empty(self):
-        return self.size == 0
-
-    def push(self, data):
-        n = Stack.StackNode(data)
-        if self.is_empty():
-            self.top = n
-        else:
-            n.next = self.top
-            self.top = n
-
-        self.size += 1
-
-    def pop(self):
-        if self.is_empty():
-            return None
-        else:
-            r = self.top
-            self.top = self.top.next
-
-        self.size -= 1
-        return r.data
-
-    def peek(self):
-        if self.is_empty():
-            return None
-        else:
-            return self.top.data
-
-# (2 + 5) * (7 - 3)
-
-post_fix_expr = [2, 5, '+' , 7, 3, '-', '*' ]
-
-def process_post_fix(post_fix_expr):
-    operators = ['+', '-', '*', '/']
-    post_fix_stack = Stack()
-    for item in post_fix_expr:
-        if item in operators:
-            b = post_fix_stack.pop()
-            a = post_fix_stack.pop()
-            if item == '+':
-                result = a+b
-            elif item == '-':
-                result = a-b
-            elif item == '*':
-                result = a*b
-            else:
-                result = a/b
-            post_fix_stack.push(result)
-        else:
-            post_fix_stack.push(item)
-
-    return post_fix_stack.pop()
+    print("STARTING POST ORDER TRAVERSAL...")
+    for data in bst.post_order_recursive_iter(bst.root_node):
+        print(f"Do something with {data}")

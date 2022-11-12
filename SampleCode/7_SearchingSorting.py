@@ -43,7 +43,7 @@ def linear_search_ordered(haystack, needle):
     return found
 
 
-def linear_search_concise(haystack, needle):
+def linear_search_ordered_concise(haystack, needle):
     for element in haystack:
         if element == needle:
             return element
@@ -87,7 +87,7 @@ def binary_search_recursive(haystack, needle, lower_idx, upper_idx):
         midpoint = (lower_idx + upper_idx) // 2
         if haystack[midpoint] == needle:
             return midpoint
-        elif needle > haystack[midpoint]
+        elif needle > haystack[midpoint]:
             return binary_search_recursive(haystack, needle, midpoint+1, upper_idx)
         else:
             return binary_search_recursive(haystack, needle, lower_idx, midpoint-1)
@@ -114,6 +114,7 @@ def interpolation_search(haystack, needle):
     print(f"Could not find {needle} :-(")
     return False
 
+
 def nearest_mid(haystack, needle, lower_idx, upper_idx):
     idx_range = upper_idx - lower_idx
     val_range = haystack[upper_idx] - haystack[lower_idx]
@@ -134,8 +135,9 @@ def bubble_sort(input_list):
 
     return input_list
 
+
 def insertion_sort(input_list):
-    for i in range(1,len(input_list))
+    for i in range(1,len(input_list)):
         tmp = input_list[i]
         j = i-1
 
@@ -146,6 +148,7 @@ def insertion_sort(input_list):
         input_list[j+1] = tmp
 
     return input_list
+
 
 def selection_sort(input_list):
     for i in range(0, len(input_list) - 1):
@@ -181,11 +184,12 @@ def partition(input_list, lower_idx, upper_idx):
     input_list[right_idx] = pivot
     return right_idx
 
+
 def quick_sort(input_list, first, last):
     if last - first <= 0:
         return None
     else:
         partition_point = partition(input_list, first, last)
-        quick_sort(input_list, first, partition_point -1 )
+        quick_sort(input_list, first, partition_point - 1)
         quick_sort(input_list, partition_point + 1, last)
 

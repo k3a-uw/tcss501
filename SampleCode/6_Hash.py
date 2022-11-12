@@ -72,3 +72,51 @@ class HashTable:
                 break
 
         raise KeyError(f"Key: '{key}' does not exist in HashTable.")
+
+if __name__ == "__main__":
+    import time
+
+    # COLLISION
+    # ag and ee will collide
+
+    ht = HashTable()
+    ht["ag"] = '1234'
+    ht["ee"] = '4321'
+
+    ht2 = HashTable()
+
+    for i in range(0, ht2.size):
+        start = time.perf_counter()
+        ht2[str(i)] = str(i) * 2
+        duration_seconds = time.perf_counter() - start
+        print(f"Inserted Value {i} in: {duration_seconds:.5f} seconds.", end="\r")
+
+    print("\nDone Inserting")
+
+    # ht2.put("test", "test")   # THIS WILL CAUSE AN INFINITE LOOP AS DESIGNED
+
+    ht2._grow()
+
+    ht3 = HashTable()
+
+    duration_seconds = 0
+    idx = 0
+
+    i = 0
+    while True:
+        if ht3.size == ht3.count:
+            q = input(f"\nMax size {ht3.size} reached... Resize and Keep Going? [Y/n]: ")
+            if q.upper() not in ['Y', '']:
+                break
+            print(f"\nResizing to {2 ** (ht3.capacity_level + 1) - 1}....", end="")
+
+            resize_start = time.perf_counter()
+            ht3._grow()
+            resize_duration_seconds = time.perf_counter() - resize_start
+            print(f"completed in {resize_duration_seconds:.5f} seconds.", flush=True)
+
+        start = time.perf_counter()
+        ht3[str(i)] = str(i) * 2
+        duration_seconds = time.perf_counter() - start
+        print(f"Inserted Value {i} in {duration_seconds:.5f} seconds.        ", end="\r")
+        i += 1
