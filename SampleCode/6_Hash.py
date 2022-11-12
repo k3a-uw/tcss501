@@ -73,6 +73,7 @@ class HashTable:
 
         raise KeyError(f"Key: '{key}' does not exist in HashTable.")
 
+
 if __name__ == "__main__":
     import time
 
