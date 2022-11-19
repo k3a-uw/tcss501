@@ -210,3 +210,18 @@ if __name__ == "__main__":
 
     for i in my_list:
         print(my_list)
+
+
+
+
+def cast_this_to_int(value):
+    try:
+        assert(value < 100)
+
+    except AssertionError as e:
+        print("Value should be less than 100")
+    except ValueError as ve:
+
+
+
+list = []

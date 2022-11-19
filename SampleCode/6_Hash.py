@@ -1,7 +1,7 @@
 class HashTable:
 
     MAX_FILL_FACTOR = 0.6
-    STARTING_CAPACITY = 2
+    STARTING_CAPACITY = 2   # size = 2 ^ STARTING_CAPACITY - 1
 
     class HashItem:
         def __init__(self, key, value):
@@ -11,7 +11,7 @@ class HashTable:
     def __init__(self):
         self.capacity_level = self.STARTING_CAPACITY
         self.size = 2**self.capacity_level-1
-        self.slots = [None for i in range(self.size)]
+        self.slots = [None for x in range(self.size)]
         self.count = 0
 
     def __setitem__(self, key, value):

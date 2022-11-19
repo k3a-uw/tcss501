@@ -196,3 +196,40 @@ res = company_df.merge(user_df,
 
 
 
+url = 'https://data.cdc.gov/api/views/vurf-k5wr/rows.csv'
+data = pd.read_csv(url)
+rows, cols = data.shape
+
+data.head()
+data.columns
+
+data.StateAbbr.value_counts()
+
+data.StateAbbr.unique()
+data.StateAbbr.value_counts()
+
+import matplotlib.pyplot as plt
+
+d = data.Short_Question_Text.value_counts()
+plt.figure(figsize=(20,6))
+plt.bar(d.index, d.values)
+plt.ylim([d.min()-100, d.max()+100])
+plt.xticks(rotation=60, ha='right')
+plt.show()
+
+data['Short_Question_Text'] == 'Health Insurance'
+h_mask = data['Short_Question_Text'] == 'Health Insurance'
+
+data.Data_Value[h_mask]
+
+import seaborn as sns
+sns.distplot(data.Data_Value[h_mask])
+plt.show()
+
+wa_data = data.loc[data.StateAbbr == 'WA', :]
+wa_data.shape
+sns.displot(wa_data.Data_Value[h_mask])
+
+h_mask_wa = wa_data['Short_Question_Text'] == 'Health Insurance'
+sns.distplot(wa_data.Data_Value[h_mask])
+plt.show()
