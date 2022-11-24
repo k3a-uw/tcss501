@@ -102,10 +102,37 @@ def deterministic_select(arr, left, right, k):
     else:
         return deterministic_select(arr, left, split - 1, k)
 
+def _stringify(n):
+    suffixes = {
+        1: 'st',
+        2: 'nd',
+        3: 'rd',
+        11: 'th',
+        12: 'th',
+        13: 'th'
+    }
+    if n in suffixes.keys():
+        suffix = suffixes[n]
+    elif n % 10 in suffixes.keys():
+        suffix = suffixes[n % 10]
+    else:
+        suffix = 'th'
+
+    return f"{n}{suffix}"
 
 if __name__ == "__main__":
     my_array = [8, 6, 7, 5, 3, 0, 9]
 
-    x = quick_select(my_array, 0, len(my_array)-1, 5)
+    n = len(my_array)
+    print(f"Using Quick Select on list: {my_array}")
+    for i in range(0, n):
+        # list.copy() USED HERE BECAUSE THE SAMPLES ACTUALLY CHANGE THE ORDER OF THE LIST
+        # Exercise for student:  Create a new function that passes a copy of the array into
+        # the recursive so the caller only needs to run: quick_select(array, i).
+        x = quick_select(my_array.copy(), 0, n-1, i)
+        print(f"The {_stringify(i)} element in the array us is: {x}")
 
-    y = deterministic_select(my_array, 0, len(my_array) - 1, 5)
+    print(f"Using Deterministic Select on list: {my_array}")
+    for i in range(0, n):
+        x = deterministic_select(my_array.copy(), 0, n-1, i)
+        print(f"The {_stringify(i)} element in the array us is: {x}")
