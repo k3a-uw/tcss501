@@ -231,5 +231,5 @@ wa_data.shape
 sns.displot(wa_data.Data_Value[h_mask])
 
 h_mask_wa = wa_data['Short_Question_Text'] == 'Health Insurance'
-sns.distplot(wa_data.Data_Value[h_mask])
+sns.distplot(wa_data.Data_Value[h_mask_wa])
 plt.show()
