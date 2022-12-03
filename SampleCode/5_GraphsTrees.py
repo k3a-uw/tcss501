@@ -211,6 +211,9 @@ class BinarySearchTree:
             if node.right:
                 queue.append(node.right)
 
+    def my_fun_function(self):
+        print("Hello World")
+        return
 
 if __name__ == '__main__':
     bst = BinarySearchTree()
