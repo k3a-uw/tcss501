@@ -185,6 +185,7 @@ class BinarySearchTree:
 
     def post_order_recursive(self, node):
         curr = node
+        # COMMENTS HERE
         if curr is None:
             return None
         self.in_order_recursive(curr.left)
@@ -211,6 +212,9 @@ class BinarySearchTree:
             if node.right:
                 queue.append(node.right)
 
+    def my_fun_function(self):
+        print("Hello World")
+        return
 
 if __name__ == '__main__':
     bst = BinarySearchTree()
